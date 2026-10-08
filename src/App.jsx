@@ -1,39 +1,39 @@
-  import { useState } from 'react';
-  import './App.css';
+import { useState } from 'react';
+import './App.css';
 
-  function CalcDisplay({ dispValue }) {
-    return (
-      <div className='Display'>
-        {dispValue}
-      </div>
-    );
-  }
+function CalcDisplay({ dispValue }) {
+  return (
+    <div className='Display'>
+      {dispValue}
+    </div>
+  );
+}
 
-  function CalcButton({ buttonLabel, onClick }) {
-    return (
-      <button className='Button' onClick={onClick}>
-        {buttonLabel}
-      </button>
-    );
-  }
+function CalcButton({ buttonLabel, onClick }) {
+  return (
+    <button className='Button' onClick={onClick}>
+      {buttonLabel}
+    </button>
+  );
+}
 
-  function App() {
-    const [disp, setDisp] = useState('0');
-    const [operand1, setOperand1] = useState('');
-    const [operand2, setOperand2] = useState('');
-    const [operation, setOperation] = useState('');
+function App() {
+  const [disp, setDisp] = useState('0');
+  const [operand1, setOperand1] = useState('');
+  const [operand2, setOperand2] = useState('');
+  const [operation, setOperation] = useState('');
 
-    const buttonClickhandler = (e) => {
-      const value = e.target.innerHTML;
+  const buttonClickhandler = (e) => {
+    const value = e.target.innerHTML;
 
-      if (value === 'C') {
-        setDisp('0');
-        setOperand1('');
-        setOperand2('');
-        setOperation('');
-      } 
-      else if (value === '=') {
-        
+    if (value === 'C') {
+      setDisp('0');
+      setOperand1('');
+      setOperand2('');
+      setOperation('');
+    } 
+    else if (value === '=') {
+      if (operand1 !== '' && operand2 !== '' && operation !== '') {
         let num1 = parseInt(operand1);
         let num2 = parseInt(operand2);
         let result = 0;
@@ -47,42 +47,46 @@
         setOperand1(String(result)); 
         setOperand2('');
         setOperation('');
-      } 
-      else if (value === 'PINEDA') {
-        setDisp('CARLENE PINEDA');
-        setOperand1('');
-        setOperand2('');
-        setOperation('');
-      } 
-      else if (value === '+' || value === '-' || value === 'x' || value === '÷') {
-        
-        if (operand1 !== '' && operand2 !== '') {
-          let num1 = parseInt(operand1);
-          let num2 = parseInt(operand2);
-          let result = 0;
-
-          if (operation === '+') result = num1 + num2;
-          if (operation === '-') result = num1 - num2;
-          if (operation === 'x') result = num1 * num2;
-          if (operation === '÷') result = num1 / num2;
-
-          setDisp(String(result));
-          setOperand1(String(result));
-          setOperand2('');
-        } else {
-          setOperand1(disp);
-        }
-        setOperation(value);
       }
-      else {
-        
-        if (disp === '0' || disp === 'Error' || disp === 'PINEDA' || operation !== '' && operand2 === '') {
+    } 
+    else if (value === 'PINEDA') {
+      setDisp('CARLENE PINEDA');
+      setOperand1('');
+      setOperand2('');
+      setOperation('');
+    } 
+    else if (value === '+' || value === '-' || value === 'x' || value === '÷') {
+      if (operand1 !== '' && operand2 !== '' && operation !== '') {
+        let num1 = parseInt(operand1);
+        let num2 = parseInt(operand2);
+        let result = 0;
+
+        if (operation === '+') result = num1 + num2;
+        if (operation === '-') result = num1 - num2;
+        if (operation === 'x') result = num1 * num2;
+        if (operation === '÷') result = num1 / num2;
+
+        setDisp(value); 
+        setOperand1(String(result));
+        setOperand2('');
+      } else {
+        setDisp(value); 
+        setOperand1(disp); 
+      }
+      setOperation(value);
+    }
+    else {
+      if (disp === '0' || disp === 'Error' || disp === 'CARLENE PINEDA' || value === '+' || value === '-' || value === 'x' || value === '÷') {
+        setDisp(value);
+        if (operation === '') {
+          setOperand1(value);
+        } else {
+          setOperand2(value);
+        }
+      } else {
+        if (disp === '+' || disp === '-' || disp === 'x' || disp === '÷') {
           setDisp(value);
-          if (operation === '') {
-            setOperand1(value);
-          } else {
-            setOperand2(value);
-          }
+          setOperand2(value);
         } else {
           setDisp(disp + value);
           if (operation === '') {
@@ -92,35 +96,37 @@
           }
         }
       }
-    };
+    }
+  };
 
-    return (
-      <div className='App'>
-        <div className='Header'>Calculator of Carlene Pineda - WMD-3A</div>
-        <div className='Calculator'>
-          <CalcDisplay dispValue={disp} />
-          <div className='Keypad'>
-            <CalcButton buttonLabel={7} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={8} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={9} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"÷"} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={4} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={5} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={6} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"x"} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={1} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={2} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={3} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"-"} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"C"} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={0} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"="} onClick={buttonClickhandler} />
-            <CalcButton buttonLabel={"+"} onClick={buttonClickhandler} />
-          </div>
-          <CalcButton buttonLabel={"PINEDA"} onClick={buttonClickhandler} />
+  return (
+    <div className='App'>
+      <div className='Header'>Calculator of Carlene Pineda - WMD-3A</div>
+      <div className='Calculator'>
+        <CalcDisplay dispValue={disp} />
+        <div className='Keypad'>
+          <CalcButton buttonLabel={7} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={8} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={9} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={"÷"} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={4} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={5} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={6} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={"x"} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={1} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={2} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={3} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={"-"} onClick={buttonClickhandler} />
+          {/* FIXED: Added "C" back inside the label here */}
+          <CalcButton buttonLabel={"C"} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={0} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={"="} onClick={buttonClickhandler} />
+          <CalcButton buttonLabel={"+"} onClick={buttonClickhandler} />
         </div>
+        <CalcButton buttonLabel={"PINEDA"} onClick={buttonClickhandler} />
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-  export default App;
+export default App;
