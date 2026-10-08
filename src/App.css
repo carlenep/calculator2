@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -16,6 +16,7 @@ body {
   padding: 20px;
 }
 .Header {
+  font-size: 1.2rem;
   font-size: 1.6rem;
   font-weight: 700;
   color: #2d372e;
@@ -40,9 +41,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 2.2rem;
-  font-weight: 700;
   color: #1e2c20;
+  font-weight: 700;
+  
+  /* FIXED: Lowered from 2.2rem to 1.3rem so CARLENE PINEDA fits on one line */
+  font-size: 1.3rem; 
 }
 .Keypad {
   display: grid;
@@ -62,7 +65,4 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 0 #313d32;
-  
 }
-
-
